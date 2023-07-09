@@ -93,7 +93,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &358932023398500696
 RectTransform:
   m_ObjectHideFlags: 0
@@ -295,7 +295,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1171056410010857122
 RectTransform:
   m_ObjectHideFlags: 0
@@ -454,6 +454,7 @@ MonoBehaviour:
   "\u7076\u5934": {fileID: 1559723069}
   "\u653E\u67F4\u53E3": {fileID: 5910353040513679561}
   "\u67F4\u706B\u5217\u8868": []
+  "\u6E29\u5EA6": 0
   currentState: 0
 --- !u!114 &1559723069
 MonoBehaviour:
