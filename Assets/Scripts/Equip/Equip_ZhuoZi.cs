@@ -6,6 +6,6 @@ public class Equip_ZhuoZi : EquipBase
 {
     public override void Reset()
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
     }
 }

@@ -10,7 +10,8 @@ public class Equip_LianDanLu : EquipBase
     public Button 泥料;
     public Button 炉体;
     public List<string> 砂体列表;
-    public List<string> 草药列表;
+
+    public string 当前砂体;
 
     void Awake()
     {
@@ -21,8 +22,11 @@ public class Equip_LianDanLu : EquipBase
         木塞.gameObject.SetActive(false);
         泥料.gameObject.SetActive(false);
 
-        砂体列表 = new List<string>() { "砂体1", "砂体2", "砂体3", "砂体4", "砂体5" };
-        草药列表 = new List<string>() { "草药1", "草药2", "草药3", "草药4", "草药5", "草药6", "草药7" };
+        砂体列表 = new List<string>() {
+            GameForm.砂体名称.原砂,
+            GameForm.砂体名称.紫砂,
+            GameForm.砂体名称.金砂,
+         };
 
         Reset();
     }
@@ -47,28 +51,36 @@ public class Equip_LianDanLu : EquipBase
             case State.选择砂体:
                 UIManager.Instance.ShowItemSelectUI("选择砂体", 砂体列表, (string item) =>
                 {
-                    UIManager.Instance.ShowBubbleTip("选择了砂体：" + item);
-                    SetState(State.选择草药);
+                    if (!GameManager.Instance.Check砂体(item))
+                    {
+                        UIManager.Instance.ShowBubbleTip("砂体选择错误，请重新选择");
+                        return;
+                    }
+                    else
+                    {
+                        当前砂体 = item;
+                        UIManager.Instance.ShowBubbleTip("选择了砂体：" + item);
+                        烧砂();
+                    }
                 });
                 break;
-            case State.选择草药:
-                UIManager.Instance.ShowItemSelectUI("选择草药", 草药列表, (string item) =>
+            case State.烧砂中:
+                UIManager.Instance.ShowBubbleTip("正在烧砂");
+                break;
+            case State.完成烧砂:
+                UIManager.Instance.ShowBubbleTip("烧砂已完成");
+                break;
+            case State.准备烧制草药:
+                UIManager.Instance.ShowTip("是否开始烧制草药？", () =>
                 {
-                    UIManager.Instance.ShowBubbleTip("选择了草药：" + item);
-                    SetState(State.准备烧制);
+                    烧制草药();
                 });
                 break;
-            case State.准备烧制:
-                UIManager.Instance.ShowTip("是否开始烧制？", () =>
-                {
-                    烧制();
-                });
+            case State.烧制草药中:
+                UIManager.Instance.ShowBubbleTip("正在烧制草药");
                 break;
-            case State.烧制中:
-                UIManager.Instance.ShowBubbleTip("正在烧制");
-                break;
-            case State.烧制完成:
-                // UIManager.Instance.ShowBubbleTip("烧制完成，等待冷却");
+            case State.烧制草药完成:
+                // UIManager.Instance.ShowBubbleTip("烧制草药完成，等待冷却");
                 break;
             case State.封泥冷却:
                 // UIManager.Instance.ShowBubbleTip("");
@@ -77,53 +89,78 @@ public class Equip_LianDanLu : EquipBase
                 break;
             case State.塞木塞:
                 break;
-            case State.结束烧制:
+            case State.结束烧制草药:
                 UIManager.Instance.ShowBubbleTip("烧药已结束");
                 Reset();
                 break;
         }
     }
 
-    void 烧制()
+    void 烧砂()
     {
-        SetState(State.烧制中);
-        StartCoroutine(烧制过程());
+        SetState(State.烧砂中);
+        StartCoroutine(烧砂过程());
     }
 
-    IEnumerator 烧制过程()
+    IEnumerator 烧砂过程()
     {
-        UIManager.Instance.ShowBubbleTip("开始烧制");
+        UIManager.Instance.ShowBubbleTip("开始烧砂");
         yield return new WaitForSeconds(1);
-        UIManager.Instance.ShowBubbleTip("烧制中...1");
+        UIManager.Instance.ShowBubbleTip("烧砂中...1");
         yield return new WaitForSeconds(1);
-        UIManager.Instance.ShowBubbleTip("烧制中...2");
+        UIManager.Instance.ShowBubbleTip("烧砂中...2");
         yield return new WaitForSeconds(1);
-        UIManager.Instance.ShowBubbleTip("烧制中...3");
+        UIManager.Instance.ShowBubbleTip("烧砂中...3");
         yield return new WaitForSeconds(1);
-        UIManager.Instance.ShowBubbleTip("烧制完成");
-        SetState(State.烧制完成);
-        // FIXME: 待修改
-        SetState(State.结束烧制);
+        UIManager.Instance.ShowBubbleTip("烧砂已完成，请点击捣药罐加入草药颗粒");
+        SetState(State.完成烧砂);
+    }
+
+    void 烧制草药()
+    {
+        SetState(State.烧制草药中);
+        StartCoroutine(烧制草药过程());
+    }
+
+    IEnumerator 烧制草药过程()
+    {
+        UIManager.Instance.ShowBubbleTip("开始烧制草药");
+        yield return new WaitForSeconds(1);
+        UIManager.Instance.ShowBubbleTip("烧制草药中...1");
+        yield return new WaitForSeconds(1);
+        UIManager.Instance.ShowBubbleTip("烧制草药中...2");
+        yield return new WaitForSeconds(1);
+        UIManager.Instance.ShowBubbleTip("烧制草药中...3");
+        yield return new WaitForSeconds(1);
+        UIManager.Instance.ShowBubbleTip("烧制草药完成");
+        SetState(State.烧制草药完成);
+        // FIXME: 待移除
+        SetState(State.结束烧制草药);
     }
 
     public override void Reset()
     {
-        // SetState(State.空闲);
-        SetState(State.选择砂体);
+        StopAllCoroutines();
+
+        SetState(State.空闲);
+        // SetState(State.选择砂体);
+
+        当前砂体 = string.Empty;
     }
 
     public enum State
     {
         空闲,
         选择砂体,
-        选择草药,
-        准备烧制,
-        烧制中,
-        烧制完成,
+        烧砂中,
+        完成烧砂,
+        准备烧制草药,
+        烧制草药中,
+        烧制草药完成,
         封泥冷却,
         裁剪切口,
         塞木塞,
-        结束烧制,
+        结束烧制草药,
     }
 
     public State currentState;
@@ -137,13 +174,16 @@ public class Equip_LianDanLu : EquipBase
                 break;
             case State.选择砂体:
                 break;
-            case State.选择草药:
+            case State.烧砂中:
                 break;
-            case State.准备烧制:
+            case State.完成烧砂:
+                GameManager.Instance.Set砂体(当前砂体);
                 break;
-            case State.烧制中:
+            case State.准备烧制草药:
                 break;
-            case State.烧制完成:
+            case State.烧制草药中:
+                break;
+            case State.烧制草药完成:
                 break;
             case State.封泥冷却:
                 break;
@@ -151,7 +191,8 @@ public class Equip_LianDanLu : EquipBase
                 break;
             case State.塞木塞:
                 break;
-            case State.结束烧制:
+            case State.结束烧制草药:
+                GameManager.Instance.完成炼丹();
                 break;
         }
         print("炼丹炉状态：" + Enum.GetName(typeof(State), state));

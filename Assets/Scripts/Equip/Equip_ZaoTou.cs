@@ -10,12 +10,18 @@ public class Equip_ZaoTou : EquipBase
     public Button 放柴口;
     public List<string> 柴火列表;
 
+    public int 温度 = 0;
+
     void Awake()
     {
         灶头.onClick.AddListener(点击_灶头);
         放柴口.onClick.AddListener(点击_放柴口);
 
-        柴火列表 = new List<string>() { "柴火1", "柴火2", "柴火3" };
+        柴火列表 = new List<string>() {
+            GameForm.木柴名称.松木,
+            GameForm.木柴名称.藤木,
+            GameForm.木柴名称.雪木,
+         };
 
         Reset();
     }
@@ -37,7 +43,7 @@ public class Equip_ZaoTou : EquipBase
                 UIManager.Instance.ShowBubbleTip("正在烧柴");
                 break;
             case State.结束烧柴:
-                UIManager.Instance.ShowBubbleTip("结束烧柴");
+                UIManager.Instance.ShowBubbleTip("烧柴已结束");
                 break;
         }
     }
@@ -69,8 +75,7 @@ public class Equip_ZaoTou : EquipBase
                 UIManager.Instance.ShowBubbleTip("正在烧柴");
                 break;
             case State.结束烧柴:
-                UIManager.Instance.ShowBubbleTip("结束烧柴");
-                Reset();
+                UIManager.Instance.ShowBubbleTip("烧柴已结束");
                 break;
         }
     }
@@ -85,20 +90,26 @@ public class Equip_ZaoTou : EquipBase
     {
         UIManager.Instance.ShowBubbleTip("开始烧柴");
         yield return new WaitForSeconds(1);
+        温度 = 1;
         UIManager.Instance.ShowBubbleTip("烧柴中...1");
         yield return new WaitForSeconds(1);
+        温度 = 2;
         UIManager.Instance.ShowBubbleTip("烧柴中...2");
         yield return new WaitForSeconds(1);
+        温度 = 3;
         UIManager.Instance.ShowBubbleTip("烧柴中...3");
         yield return new WaitForSeconds(1);
+        温度 = 4;
         UIManager.Instance.ShowBubbleTip("结束烧柴");
         SetState(State.结束烧柴);
     }
 
     public override void Reset()
     {
-        // SetState(State.空闲);
-        SetState(State.等待放柴);
+        StopAllCoroutines();
+        SetState(State.空闲);
+        // SetState(State.等待放柴);
+        温度 = 0;
     }
 
     public enum State
@@ -121,9 +132,13 @@ public class Equip_ZaoTou : EquipBase
                 break;
             case State.等待放柴:
                 break;
+            case State.等待烧柴:
+                UIManager.Instance.ShowBubbleTip("点击烧柴口开始烧柴");
+                break;
             case State.正在烧柴:
                 break;
             case State.结束烧柴:
+                GameManager.Instance.Set柴火温度(温度);
                 break;
         }
         print("灶头状态：" + Enum.GetName(typeof(State), currentState));

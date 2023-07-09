@@ -6,6 +6,6 @@ public class Equip_Wan : EquipBase
 {
     public override void Reset()
     {
-        throw new System.NotImplementedException();
+        // throw new System.NotImplementedException();
     }
 }

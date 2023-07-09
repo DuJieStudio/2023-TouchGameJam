@@ -39,7 +39,29 @@ public class Equip_DaoYaoGuan : EquipBase
 
     void 点击_研钵()
     {
-        UIManager.Instance.ShowBubbleTip("这是研钵");
+        switch (currentState)
+        {
+            case State.空闲:
+                UIManager.Instance.ShowBubbleTip("这是研钵");
+                break;
+            case State.准备捣药:
+                break;
+            case State.正在捣药:
+                UIManager.Instance.ShowBubbleTip("结束捣药");
+                SetState(State.捣药完成);
+                break;
+            case State.捣药完成:
+                if(GameManager.Instance.currentStep == GameManager.Step.炼丹)
+                {
+                    GameManager.Instance.Set加入草药();
+                    UIManager.Instance.ShowBubbleTip("草药已加入炼丹炉，可以开始炼制丹药了");
+                }
+                else
+                {
+                    UIManager.Instance.ShowBubbleTip("已完成捣药");
+                }
+                break;
+        }
     }
 
     void 点击_研杵()
@@ -49,11 +71,13 @@ public class Equip_DaoYaoGuan : EquipBase
             case State.空闲:
                 UIManager.Instance.ShowBubbleTip("这是研杵");
                 break;
+            case State.准备捣药:
+                break;
             case State.正在捣药:
                 执行_捣药();
                 break;
             case State.捣药完成:
-                Reset();
+                UIManager.Instance.ShowBubbleTip("已完成捣药");
                 break;
         }
     }
@@ -62,7 +86,7 @@ public class Equip_DaoYaoGuan : EquipBase
     {
         if (!Utility.IsAnimatorFinished(animator))
         {
-            UIManager.Instance.ShowBubbleTip("正在捣药中...次数：" + 捣药次数);
+            UIManager.Instance.ShowBubbleTip("正在捣药中...次数：" + 捣药次数 + "\n（点击研钵，结束捣药）");
             return;
         }
 
@@ -73,7 +97,7 @@ public class Equip_DaoYaoGuan : EquipBase
         药颗粒_小.SetActive(false);
         if (捣药次数 >= 捣药_最大次数)
         {
-            UIManager.Instance.ShowBubbleTip("捣药完成");
+            UIManager.Instance.ShowBubbleTip("以达最大次数，结束捣药");
             SetState(State.捣药完成);
         }
         else if (捣药次数 >= 捣药_小颗粒次数)
@@ -98,8 +122,8 @@ public class Equip_DaoYaoGuan : EquipBase
         捣药次数 = 0;
         颗粒大小 = 颗粒大小类型.粗;
 
-        // SetState(State.空闲);
-        SetState(State.正在捣药);
+        SetState(State.空闲);
+        // SetState(State.正在捣药);
     }
 
     public enum State
@@ -131,6 +155,7 @@ public class Equip_DaoYaoGuan : EquipBase
             case State.正在捣药:
                 break;
             case State.捣药完成:
+                GameManager.Instance.Set颗粒大小(颗粒大小);
                 break;
         }
         print("捣药罐状态：" + Enum.GetName(typeof(State), currentState));
