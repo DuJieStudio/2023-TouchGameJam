@@ -7,30 +7,30 @@ public static class GameForm
     public static readonly Dictionary<string, 丹药配置> 丹药配置表 = new()
     {
         {
-            丹药名称.丹药1, new 丹药配置()
+            丹药名称.雪岭丹, new 丹药配置()
             {
-                名称 = 丹药名称.丹药1,
+                名称 = 丹药名称.雪岭丹,
                 描述 = "丹药1的描述",
                 图标 = "丹药1的图标",
-                制药流程名称 = 制药流程名称.制药流程1,
+                制药流程名称 = 制药流程名称.雪岭丹制药流程,
             }
         },
         {
-            丹药名称.丹药2, new 丹药配置()
+            丹药名称.热寂丹, new 丹药配置()
             {
-                名称 = 丹药名称.丹药2,
+                名称 = 丹药名称.热寂丹,
                 描述 = "丹药2的描述",
                 图标 = "丹药2的图标",
-                制药流程名称 = 制药流程名称.制药流程2,
+                制药流程名称 = 制药流程名称.热寂丹制药流程,
             }
         },
         {
-            丹药名称.丹药3, new 丹药配置()
+            丹药名称.无情丹, new 丹药配置()
             {
-                名称 = 丹药名称.丹药3,
+                名称 = 丹药名称.无情丹,
                 描述 = "丹药3的描述",
                 图标 = "丹药3的图标",
-                制药流程名称 = 制药流程名称.制药流程3,
+                制药流程名称 = 制药流程名称.无情丹制药流程,
             }
         },
     };
@@ -38,27 +38,27 @@ public static class GameForm
     public static readonly Dictionary<string, 木柴配置> 木柴配置表 = new()
     {
         {
-            木柴名称.木柴1, new 木柴配置()
+            木柴名称.松木, new 木柴配置()
             {
-                名称 = 木柴名称.木柴1,
+                名称 = 木柴名称.松木,
                 描述 = "木柴1的描述",
-                图标 = "木柴1的图标",
+                图标 = "icon_chai_1",
             }
         },
         {
-            木柴名称.木柴2, new 木柴配置()
+            木柴名称.藤木, new 木柴配置()
             {
-                名称 = 木柴名称.木柴2,
+                名称 = 木柴名称.藤木,
                 描述 = "木柴2的描述",
-                图标 = "木柴2的图标",
+                图标 = "icon_chai_2",
             }
         },
         {
-            木柴名称.木柴3, new 木柴配置()
+            木柴名称.雪木, new 木柴配置()
             {
-                名称 = 木柴名称.木柴3,
+                名称 = 木柴名称.雪木,
                 描述 = "木柴3的描述",
-                图标 = "木柴3的图标",
+                图标 = "icon_chai_3",
             }
         },
     };
@@ -66,27 +66,27 @@ public static class GameForm
     public static readonly Dictionary<string, 砂体配置> 砂体配置表 = new()
     {
         {
-            砂体名称.砂体1, new 砂体配置()
+            砂体名称.原砂, new 砂体配置()
             {
-                名称 = 砂体名称.砂体1,
+                名称 = 砂体名称.原砂,
                 描述 = "砂体1的描述",
-                图标 = "砂体1的图标",
+                图标 = "icon__sha_3",
             }
         },
         {
-            砂体名称.砂体2, new 砂体配置()
+            砂体名称.金砂, new 砂体配置()
             {
-                名称 = 砂体名称.砂体2,
+                名称 = 砂体名称.金砂,
                 描述 = "砂体2的描述",
-                图标 = "砂体2的图标",
+                图标 = "icon__sha_5",
             }
         },
         {
-            砂体名称.砂体3, new 砂体配置()
+            砂体名称.紫砂, new 砂体配置()
             {
-                名称 = 砂体名称.砂体3,
+                名称 = 砂体名称.紫砂,
                 描述 = "砂体3的描述",
-                图标 = "砂体3的图标",
+                图标 = "icon__sha_1",
             }
         },
     };
@@ -94,35 +94,38 @@ public static class GameForm
     public static readonly Dictionary<string, 制药流程配置> 制药流程配置表 = new()
     {
         {
-            制药流程名称.制药流程1, new 制药流程配置()
+            制药流程名称.雪岭丹制药流程, new 制药流程配置()
             {
-                名称 = 制药流程名称.制药流程1,
+                名称 = 制药流程名称.雪岭丹制药流程,
+                丹药名称 = 丹药名称.雪岭丹,
                 颗粒大小 = 颗粒大小类型.粗,
-                木柴名称 = 木柴名称.木柴1,
-                砂体名称 = 砂体名称.砂体1,
-                草药名称 = 草药名称.草药1,
+                木柴名称 = 木柴名称.松木,
+                砂体名称 = 砂体名称.原砂,
+                草药名称 = 草药名称.雪岭草,
                 烧制时间 = 10,
             }
         },
         {
-            制药流程名称.制药流程2, new 制药流程配置()
+            制药流程名称.热寂丹制药流程, new 制药流程配置()
             {
-                名称 = 制药流程名称.制药流程2,
+                名称 = 制药流程名称.热寂丹制药流程,
+                丹药名称 = 丹药名称.热寂丹,
                 颗粒大小 = 颗粒大小类型.中,
-                木柴名称 = 木柴名称.木柴2,
-                砂体名称 = 砂体名称.砂体2,
-                草药名称 = 草药名称.草药2,
+                木柴名称 = 木柴名称.藤木,
+                砂体名称 = 砂体名称.金砂,
+                草药名称 = 草药名称.热风枝,
                 烧制时间 = 20,
             }
         },
         {
-            制药流程名称.制药流程3, new 制药流程配置()
+            制药流程名称.无情丹制药流程, new 制药流程配置()
             {
-                名称 = 制药流程名称.制药流程3,
+                名称 = 制药流程名称.无情丹制药流程,
+                丹药名称 = 丹药名称.无情丹,
                 颗粒大小 = 颗粒大小类型.细,
-                木柴名称 = 木柴名称.木柴3,
-                砂体名称 = 砂体名称.砂体3,
-                草药名称 = 草药名称.草药3,
+                木柴名称 = 木柴名称.雪木,
+                砂体名称 = 砂体名称.紫砂,
+                草药名称 = 草药名称.幽邃叶,
                 烧制时间 = 30,
             }
         },
@@ -159,37 +162,37 @@ public static class GameForm
 
     public class 丹药名称
     {
-        public const string 丹药1 = "丹药1";
-        public const string 丹药2 = "丹药2";
-        public const string 丹药3 = "丹药3";
+        public const string 雪岭丹 = "雪岭丹";
+        public const string 热寂丹 = "热寂丹";
+        public const string 无情丹 = "无情丹";
     }
 
     public class 制药流程名称
     {
-        public const string 制药流程1 = "制药流程1";
-        public const string 制药流程2 = "制药流程2";
-        public const string 制药流程3 = "制药流程3";
+        public const string 雪岭丹制药流程 = "雪岭丹制药流程";
+        public const string 热寂丹制药流程 = "热寂丹制药流程";
+        public const string 无情丹制药流程 = "无情丹制药流程";
     }
 
     public class 砂体名称
     {
-        public const string 砂体1 = "砂体1";
-        public const string 砂体2 = "砂体2";
-        public const string 砂体3 = "砂体3";
+        public const string 原砂 = "原砂";
+        public const string 金砂 = "金砂";
+        public const string 紫砂 = "紫砂";
     }
 
     public class 木柴名称
     {
-        public const string 木柴1 = "木柴1";
-        public const string 木柴2 = "木柴2";
-        public const string 木柴3 = "木柴3";
+        public const string 松木 = "松木";
+        public const string 藤木 = "藤木";
+        public const string 雪木 = "雪木";
     }
 
     public class 草药名称
     {
-        public const string 草药1 = "草药1";
-        public const string 草药2 = "草药2";
-        public const string 草药3 = "草药3";
+        public const string 雪岭草 = "雪岭草";
+        public const string 热风枝 = "热风枝";
+        public const string 幽邃叶 = "幽邃叶";
     }
 
     public enum 颗粒大小类型
@@ -202,6 +205,7 @@ public static class GameForm
     public class 制药流程配置
     {
         public string 名称;
+        public string 丹药名称;
         public 颗粒大小类型 颗粒大小;
         public string 木柴名称;
         public string 砂体名称;
