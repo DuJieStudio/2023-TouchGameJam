@@ -10,6 +10,8 @@ public class UIManager:SingletonMono<UIManager>
     public TipUI 提示UI;
     public BubbleUI 气泡UI;
     public ItemSelectUI 物品选择UI;
+    public BookUI 说明书UI;
+    public HerbUI 草药柜UI;
     
     protected override void onInit()
     {
@@ -34,5 +36,15 @@ public class UIManager:SingletonMono<UIManager>
         物品选择UI.Open();
         物品选择UI.SetTitle(title);
         物品选择UI.SetItems(itemNames, onSelect);
+    }
+
+    public void ShowBookUI()
+    {
+        说明书UI.Open();
+    }
+
+    public void ShowHerbUI()
+    {
+        草药柜UI.Open();
     }
 }
