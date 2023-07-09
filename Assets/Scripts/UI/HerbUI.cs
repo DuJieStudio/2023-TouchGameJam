@@ -20,9 +20,9 @@ public class HerbUI : MonoBehaviour
         }
         关闭.onClick.AddListener(点击_关闭);
 
-        草药列表.Add(GameForm.草药名称.草药1);
-        草药列表.Add(GameForm.草药名称.草药2);
-        草药列表.Add(GameForm.草药名称.草药3);
+        草药列表.Add(GameForm.草药名称.雪岭草);
+        草药列表.Add(GameForm.草药名称.热风枝);
+        草药列表.Add(GameForm.草药名称.幽邃叶);
         for (int i = 0; i < 抽屉列表.Count; i++)
         {
             Toggle 抽屉 = 抽屉列表[i];
@@ -58,6 +58,7 @@ public class HerbUI : MonoBehaviour
             抽屉列表[i].isOn = false;
             抽屉列表[i].onValueChanged.Invoke(false);
         }
+        当前草药 = string.Empty;
     }
 
     public void Open()
@@ -83,11 +84,11 @@ public class HerbUI : MonoBehaviour
             {
                 if (!GameManager.Instance.Check草药(当前草药))
                 {
-                    UIManager.Instance.ShowTip("选择错误，请选择草药!");
+                    UIManager.Instance.ShowTip("选择错误，请重新选择草药!");
                     return;
                 }
                 GameManager.Instance.Set草药(当前草药);
-                UIManager.Instance.ShowTip("草药已准备完毕!");
+                UIManager.Instance.ShowBubbleTip("草药已准备完毕!");
             },
             () =>
             {

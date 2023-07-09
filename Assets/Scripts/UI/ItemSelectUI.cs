@@ -18,13 +18,37 @@ public class ItemSelectUI : MonoBehaviour
         public Item(string name, GameObject go)
         {
             obj = go;
-            图标 = go.GetComponent<Image>();
             按钮 = go.GetComponent<Button>();
+            图标 = go.transform.Find("图标").GetComponent<Image>();
             文字 = go.transform.Find("文字").GetComponent<Text>();
 
             名称 = name;
             文字.text = name;
-            图标.color = Utility.RandomColor();
+            
+            string 路径 = string.Empty;
+            if(GameForm.砂体配置表.ContainsKey(name))
+            {
+                路径 = GameForm.砂体配置表[name].图标;
+                路径 = "Art/Icon/砂体/" + 路径;
+            }
+            else if(GameForm.木柴配置表.ContainsKey(name))
+            {
+                路径 = GameForm.木柴配置表[name].图标;
+                路径 = "Art/Icon/木柴/" + 路径;
+            }
+            print(路径);
+            
+            if(路径 == string.Empty)         
+            {
+                图标.sprite = null;
+                图标.color = Utility.RandomColor();
+            }
+            else
+            {
+                图标.sprite = Resources.Load<Sprite>(路径);
+                图标.color = Color.white;
+                图标.SetNativeSize();
+            }
 
             obj.SetActive(true);
         }

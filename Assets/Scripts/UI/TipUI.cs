@@ -36,13 +36,13 @@ public class TipUI : MonoBehaviour
         取消按钮.onClick.RemoveAllListeners();
         确定按钮.onClick.AddListener(() =>
         {
-            onConfirm?.Invoke();
             Close();
+            onConfirm?.Invoke();
         });
         取消按钮.onClick.AddListener(() =>
         {
-            onCancel?.Invoke();
             Close();
+            onCancel?.Invoke();
         });
     }
 }
