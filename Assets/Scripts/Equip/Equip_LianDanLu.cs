@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Equip_LianDanLu : MonoBehaviour
+public class Equip_LianDanLu : EquipBase
 {
     public Button 木塞;
     public Button 泥料;
@@ -106,7 +106,7 @@ public class Equip_LianDanLu : MonoBehaviour
         SetState(State.结束烧制);
     }
 
-    public void Reset()
+    public override void Reset()
     {
         // SetState(State.空闲);
         SetState(State.选择砂体);

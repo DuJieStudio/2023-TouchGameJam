@@ -2,17 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Equip_ZhuoZi : MonoBehaviour
+public class Equip_ZhuoZi : EquipBase
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Reset()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        throw new System.NotImplementedException();
     }
 }

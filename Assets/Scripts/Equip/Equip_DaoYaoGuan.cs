@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static GameForm;
 
 /// <summary>
 /// 捣药罐
 /// </summary>
-public class Equip_DaoYaoGuan : MonoBehaviour
+public class Equip_DaoYaoGuan : EquipBase
 {
     public Button 研杵;
     public Button 研钵;
@@ -21,6 +22,8 @@ public class Equip_DaoYaoGuan : MonoBehaviour
     public int 捣药_中颗粒次数 = 3;
     public int 捣药_小颗粒次数 = 5;
     public int 捣药_最大次数 = 7;
+
+    public 颗粒大小类型 颗粒大小;
 
     protected readonly int 空闲Hash = Animator.StringToHash("空闲");
     protected readonly int 捣药1Hash = Animator.StringToHash("研杵_捣药1");
@@ -68,7 +71,7 @@ public class Equip_DaoYaoGuan : MonoBehaviour
         药颗粒_大.SetActive(false);
         药颗粒_中.SetActive(false);
         药颗粒_小.SetActive(false);
-        if(捣药次数 >= 捣药_最大次数)
+        if (捣药次数 >= 捣药_最大次数)
         {
             UIManager.Instance.ShowBubbleTip("捣药完成");
             SetState(State.捣药完成);
@@ -76,21 +79,25 @@ public class Equip_DaoYaoGuan : MonoBehaviour
         else if (捣药次数 >= 捣药_小颗粒次数)
         {
             药颗粒_小.SetActive(true);
+            颗粒大小 = 颗粒大小类型.细;
         }
         else if (捣药次数 >= 捣药_中颗粒次数)
         {
             药颗粒_中.SetActive(true);
+            颗粒大小 = 颗粒大小类型.中;
         }
         else
         {
             药颗粒_大.SetActive(true);
+            颗粒大小 = 颗粒大小类型.粗;
         }
     }
 
-    public void Reset()
+    public override void Reset()
     {
         捣药次数 = 0;
-        
+        颗粒大小 = 颗粒大小类型.粗;
+
         // SetState(State.空闲);
         SetState(State.正在捣药);
     }

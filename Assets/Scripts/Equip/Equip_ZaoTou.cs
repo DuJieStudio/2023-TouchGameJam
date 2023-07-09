@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Equip_ZaoTou : MonoBehaviour
+public class Equip_ZaoTou : EquipBase
 {
     public Button 灶头;
     public Button 放柴口;
@@ -95,7 +95,7 @@ public class Equip_ZaoTou : MonoBehaviour
         SetState(State.结束烧柴);
     }
 
-    public void Reset()
+    public override void Reset()
     {
         // SetState(State.空闲);
         SetState(State.等待放柴);
